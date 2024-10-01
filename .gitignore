@@ -152,7 +152,6 @@ script
 yolo
 .idea
 screenshot
-config.yaml
 test.*.py
 favicon.ico
 dist
@@ -160,3 +159,4 @@ py310
 echo_config.yaml
 isCrashes.txt
 message.png
+mc_log.txt

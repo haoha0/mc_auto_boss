@@ -145,7 +145,7 @@ def release_skills():
                         if ult_animation_not_use is None:
                             logger("检测到大招释放，等待大招动画")
                             time.sleep(1.6)
-                            release_skills_after_ult()
+                            # release_skills_after_ult()
                             break
                 else:
                     control.fight_tap(tactic)
@@ -320,6 +320,7 @@ def transfer_to_boss(bossName):
         return False
     # control.click(960 * width_ratio, 540 * height_ratio)
     random_click(960, 540)
+    random_click(960, 540)  # 重复点击
     beacon = wait_text("借位信标", timeout=5)
     if not beacon:
         logger("未找到借位信标", "WARN")
@@ -368,6 +369,53 @@ def transfer_to_dreamless():
     # control.click(1720 * width_ratio, 420 * height_ratio)
     if transfer := wait_text("快速旅行"):
         click_position(transfer.position)
+        click_position(transfer.position)
+        click_position(transfer.position)   # 重复点击确保传送
+        logger("等待传送完成")
+        time.sleep(0.5)
+        wait_home()  # 等待回到主界面
+        logger("传送完成")
+        time.sleep(2)
+        now = datetime.now()
+        info.idleTime = now  # 重置空闲时间
+        info.lastFightTime = now  # 重置最近检测到战斗时间
+        info.fightTime = now  # 重置战斗时间
+        time.sleep(1)
+        for i in range(5):
+            forward()
+            time.sleep(0.1)
+        return True
+    logger("未找到快速旅行", "WARN")
+    control.esc()
+    return False
+
+def transfer_to_jue():
+    coordinate = find_pic(template_name="周期挑战.png", threshold=0.5)
+    if not coordinate:
+        logger("识别周期挑战失败", "WARN")
+        control.esc()
+        return False
+    click_position(coordinate)  # 进入周期挑战
+    if not wait_text("前往"):
+        logger("未进入周期挑战", "WARN")
+        control.esc()
+        return False
+    logger(f"当前目标boss：角")
+    time.sleep(2)
+    findBoss = find_text("战歌")
+    if not findBoss:
+        control.esc()
+        logger("未找到战歌重奏")
+        return False
+    click_position(findBoss.position)
+    click_position(findBoss.position)
+    time.sleep(1)
+    random_click(1720, 630)
+    # control.click(1720 * width_ratio, 420 * height_ratio)
+    if transfer := wait_text("快速旅行"):
+        click_position(transfer.position)
+        click_position(transfer.position)
+        click_position(transfer.position)   # 重复点击确保传送
         logger("等待传送完成")
         time.sleep(0.5)
         wait_home()  # 等待回到主界面
@@ -440,6 +488,9 @@ def transfer() -> bool:
     elif bossName == "无妄者":
         info.bossIndex += 1
         return transfer_to_dreamless()
+    elif bossName == "角":
+        info.bossIndex += 1
+        return transfer_to_jue()
     else:
         info.bossIndex += 1
         return transfer_to_boss(bossName)
@@ -1035,6 +1086,7 @@ def boss_wait(bossName):
     keywords_robot = ["聚", "械", "机", "偶"]
     keywords_dreamless = ["无", "妄", "者"]
     keywords_jue = ["角"]
+    # keywords_new = ["无", "归", "的", "谬", "误"]
 
     def contains_any_combinations(
         name, keywords, min_chars
@@ -1057,6 +1109,9 @@ def boss_wait(bossName):
     elif contains_any_combinations(bossName, keywords_jue, min_chars=1):
         logger(f"角需要等待{config.BossWaitTime_Jue}秒开始战斗！", "DEBUG")
         time.sleep(config.BossWaitTime_Jue)
+    # elif contains_any_combinations(bossName, keywords_new, min_chars=3):
+    #     logger(f"无归的谬误需要等待3秒开始战斗！", "DEBUG")
+    #     time.sleep(3)
     else:
         logger("当前BOSS可直接开始战斗！", "DEBUG")
 
