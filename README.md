@@ -1,3 +1,6 @@
+# 配置方法请参考
+environment_config.md
+
 # 鸣潮后台自动刷BOSS声骸 GPU
 
 > 如果觉得项目不错，可以点个star支持一下，谢谢！
