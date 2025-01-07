@@ -20,10 +20,10 @@ MaxFightTime: 120 # 单次战斗最大时间 超过时间会进行下一个目�
 MaxIdleTime: 12 # 战斗完成后的空闲时间，不能小于5
 MaxSearchEchoesTime: 18 # 战斗完成后搜索声骸的最大时间，与MaxIdleTime/2 取较大值
 SelectRoleInterval: 4 # 选择角色的时间间隔 最小为2 避免无法选择角色
-DungeonWeeklyBossLevel: 70 # 自己可以掉落的周本(副本)boss最低等级（当前索拉等级*10）
+DungeonWeeklyBossLevel: 80 # 自己可以掉落的周本(副本)boss最低等级（当前索拉等级*10）
 BossWaitTime_Dreamless: 1 # 进入-无妄者-周本等待时间，可根据连招自行调整
 BossWaitTime_Jue: 3 # 进入-角-周本等待时间，可根据连招自行调整
-CharacterHeal: true #是否判断角色是否阵亡 若阵亡则返回神像复活，请确保背包里面至少有一个复活药剂
+CharacterHeal: false #是否判断角色是否阵亡 若阵亡则返回神像复活，请确保背包里面至少有一个复活药剂
 WaitUltAnimation: false # 是否判断并等待大招动画  （实验功能，目前4k屏，175%缩放，游戏分辨率1920*1080,测试有效，可能需要做适配，欢迎测试）
 SearchEchoes: true # 是否搜索声骸
 SearchDreamlessEchoes: true # 是否搜索无妄者声骸
@@ -47,11 +47,14 @@ FightTacticsUlt: # 大招释放成功时的技能释放顺序，此处只允许�
 
 # 云闪之鳞, 辉萤军势, 无常凶鹭, 燎照之骑, 聚械机偶, 哀声鸷, 朔雷之鳞, 鸣钟之龟, 飞廉之猩, 无妄者, 角
 TargetBoss: # 目标BOSS 必须保证目标BOSS的位置是有借位信标的，可以少字但是不能有错别字
-    - "鸣钟之龟"
-    - "无归的谬误"
-    # - "燎照之骑"
+    # - "鸣钟之龟"
+    # - "无归的谬误"a
+    - "燎照之骑"
     # - "无常凶鹭"
     # - "聚械机偶"
     # - "朔雷之鳞"
-    - "无妄者"
-    # - "角"
+    # - "无冠者"
+    # - "飞廉之猩"
+    - "角"
+    # - "无妄者"
+    # - "飞廉之猩"

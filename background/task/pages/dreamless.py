@@ -231,6 +231,31 @@ def confirm_leave_action(positions: dict[str, Position]) -> bool:
     return True
 
 
+# 重新挑战
+def confirm_re_action(positions: dict[str, Position]) -> bool:
+    result = wait_text("重新挑战")
+    click_position(result.position)
+    time.sleep(3)
+    # wait_home()
+    # logger(f"{info.lastBossName}副本结束")
+    # time.sleep(2)
+    # if info.lastBossName == "角":
+    #     info.inJue = False
+    # else:
+    #     info.inDreamless = False
+    # info.status = Status.idle
+    # now = datetime.now()
+    # info.lastFightTime = now + timedelta(seconds=config.MaxFightTime / 2)
+
+    info.status = Status.idle
+    now = datetime.now()
+    info.idleTime = now  # 重置空闲时间
+    info.lastFightTime = now  # 重置最近检测到战斗时间
+    info.fightTime = now  # 重置战斗时间
+    info.lastBossName = "角"
+    
+    return True
+
 confirm_leave_page = Page(
     name="确认离开",
     targetTexts=[
@@ -243,7 +268,10 @@ confirm_leave_page = Page(
             text=template("^确认$"),
         ),
     ],
-    action=confirm_leave_action,
+    # action=confirm_leave_action,
+
+    # 重新挑战
+    action=confirm_re_action,
 )
 
 pages.append(confirm_leave_page)
